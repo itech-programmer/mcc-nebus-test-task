@@ -20,9 +20,13 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    command: >
+        sh -c "chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache &&
+               chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache &&
+               php-fpm"
 
   database:
-    image: postgres:15
+    image: postgis/postgis:15-3.3
     container_name: mcc-nebus-database
     restart: unless-stopped
     environment:
